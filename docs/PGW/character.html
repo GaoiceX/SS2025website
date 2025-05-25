@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Starlight Studio</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <script src="./image.js"></script>
+    <style>
+        .carousel-caption {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .carousel-container {
+            width: 100%;
+            height: 100vh;
+            /* 使用视口高度 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 60px;
+            /* 为导航栏留出空间 */
+        }
+
+
+
+        .footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(./images/main-bg.png);
+            background-size: cover;
+            filter: blur(5px) brightness(0.7);
+            /* 添加 brightness 使背景变暗 */
+            z-index: -1;
+        }
+
+        .footer a {
+            color: #000 !important;
+            /* 修改超链接颜色为黑色 */
+        }
+
+        .footer .text-muted {
+            color: #000 !important;
+            /* 覆盖 text-muted 类的颜色 */
+        }
+
+        @media (max-width: 767.98px) {
+            #carouselExampleIndicators {
+                margin: 10px;
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            #carouselExampleIndicators .carousel-inner {
+                height: auto;
+            }
+
+            #carouselExampleIndicators .carousel-item img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .carousel-container {
+                padding: 70px 10px 10px 10px;
+            }
+
+            #carouselExampleIndicators .carousel-item img {
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0) !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: black !important;
+        }
+
+        .carousel-item {
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-item img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            /* 保持比例完整显示 */
+            margin: auto;
+        }
+
+        .carousel-inner {
+            width: 100%;
+            height: calc(100vh - 80px);
+            /* 减去padding和边距 */
+            display: flex;
+            align-items: center;
+        }
+
+
+        .section {
+            background: rgba(255, 255, 255, 0.774);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: none;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.1);
+        }
+
+        .test {
+            width: 200px;
+            height: 200px;
+            transition: width 0.25s, height 0.25s, transform 1s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .test:hover {
+            width: 500px;
+            height: 500px;
+        }
+
+        .test img {
+            position: relative;
+            left: 50%;
+            width: 100%;
+            height: 15%;
+            transform: translate(-0%, -0%) scale(0);
+            opacity: 0;
+            transition: transform 0.25s, opacity 0.25s;
+        }
+
+
+        .test:hover img {
+            transform: translate(-50%, -0%) scale(1);
+            width: 100%;
+            height: auto;
+            opacity: 1;
+        }
+
+        .card-body {
+            padding: 10px;
+            text-align: center;
+            transition: all 0.25s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" style="color: black !important;" shref="#">Phigros:Galciaxion World</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a id="home" class="nav-link" href="./index.html">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="staff" class="nav-link" href="./staff.html">制作人员</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="character" class="nav-link" href="#">角色</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="download" class="nav-link" href="./download.html">下载</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="enlag" class="nav-link" onclick="switchToEnglish()">English</a>
+                    </li>
+
+                    <script>
+                        function switchToEnglish() {
+                            switchLanguage('en'); // 切换为英文
+                            document.getElementById('enlag').setAttribute('onclick', 'location.reload();'); // 修改按钮功能为刷新页面
+                        }
+                    </script>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!--<div class="carousel-container">
+        <header id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://img-cdn.akass.cn/24/2023/01/63b87bbb310d9.jpg!wp80" class="d-block" alt="Home"
+                        style="margin-top: 4%;">
+                </div>
+                <div class="carousel-item">
+                    <img src="./images/op.jpg" class="d-block" alt="opimage">
+                </div>
+                <div class="carousel-item">
+                    <img src="./images/Diqixiaodui.png" class="d-block" alt="diqixiaoduibale">
+                </div>
+            </div>
+
+
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </header>
+    </div>-->
+    <!-- 关于我们 -->
+    <section id="team" class="section container mt-5"> <br><br>
+        <h4 id="title-intro" class="text-center mb-5">Phigros:Galciaxion World出场人物</h4>
+        <div class="row">
+        <div class="col-md-4 mb-4 ">
+            <div class="card shadow-lg test">
+                <img src="./images/op.jpg" class="card-img-top  mx-auto mt-3" alt="友链头像">
+                <div class="card-body text-center">
+                    <h5 class="card-title">鸠</h5>
+                    <p class="card-text text-muted">第七小队成员</p>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4 ">
+            <div class="card shadow-lg test">
+                <img src="./images/op.jpg" class="card-img-top  mx-auto mt-3" alt="友链头像">
+                <div class="card-body text-center">
+                    <h5 class="card-title">鸠</h5>
+                    <p class="card-text text-muted">第七小队成员</p>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4 ">
+            <div class="card shadow-lg test">
+                <img src="./images/op.jpg" class="card-img-top  mx-auto mt-3" alt="友链头像">
+                <div class="card-body text-center">
+                    <h5 class="card-title">鸠</h5>
+                    <p class="card-text text-muted">第七小队成员</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </section>
+    <br><br><br>
+    <footer class="pt-5 pb-3 footer footer-dark position-relative">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <div class="pr-lg-5">
+                        <h1 class="heading h6 text-uppercase font-weight-700 mb-3"><strong>Starlight</strong> &nbsp
+                            Studio</h1>
+                        <p> Let Up Lighten Up the Sky——<br><br>
+                            Starlight Studio是一个目前正在专注phigros相关的同人游戏开发组织。
+                            欢迎您的加入！
+                            <br>
+                            目前开发中作品：<br>Phigros:Glaciaxion World（视觉小说，与phigrOS剧情研究站联合开发）
+                        </p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="row"></div>
+                    <h5 class="heading h6 text-uppercase font-weight-700 mb-3">感谢</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-muted" href="https://space.bilibili.com/414149787">Pigeon Games</a></li>
+                        <li><a class="text-muted" href="https://space.bilibili.com/1151028419">phigrOS剧情研究站</a></li>
+                        <li><a class="text-muted" href="https://wiki.pigeon-games.com/">Limbo wiki</a></li>
+                        <li><a class="text-muted" href="https://www.renpy.org/">Ren'py</a></li>
+                        <li><a class="text-muted" href="https://616.sb/">Konmai 音游导航站</a></li>
+                        <li>And You</li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4">
+                    <h5 class="heading h6 text-uppercase font-weight-700 mb-3">联系我们</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-muted"
+                                href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=HBAGt_6ldDejEqKsFvqYFyFeXPGwL9TP">QQ群 -
+                                Phigros剧情指导站</a>
+                        </li>
+                        <li><a class="text-muted" href="mailto://phigrosstorylab@163.com">邮件 -
+                                phigrosstorylab@163.com</a></li>
+                        <li><a class="text-muted" href="https://discord.gg/bcp65Pqcfw">Discord - Starlight Studio</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="d-flex align-items-center">
+                <span class="">
+                    2022-2024 <a href="https://starlightstudio.group/" class="footer-link" target="_blank">Starlight
+                        Studio
+                    </a>.
+                    All rights
+                    reserved.
+                </span>
+            </div>
+        </div>
+        <hr>
+        </div>
+    </footer>
+    <!-- Bootstrap JS 和依赖库 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <script>
+        function switchLanguage(lang) {
+            fetch('./language.json')
+                .then(response => response.json())
+                .then(data => {
+                    const lang = navigator.language.startsWith('zh') ? 'zh' : 'en';
+
+                    document.querySelector('#title-intro').innerText = data[lang].title_intro;
+                    document.querySelector('#home').innerText = data[lang].home;
+                    document.querySelector('#staff').innerText = data[lang].staff;
+                    document.querySelector('#character').innerText = data[lang].character;
+                    document.querySelector('#download').innerText = data[lang].download;
+                    document.querySelector('#enlag').innerText = data[lang].enlag;
+
+                });
+        }
+    </script>
+
+</body>
+
+</html>
