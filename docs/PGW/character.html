@@ -145,9 +145,10 @@
             transform: scale(1.1);
         }
 
+        /* 默认样式（适用于电脑端） */
         .test {
-            width: 200px;
-            height: 200px;
+            width: 300px;
+            height: 300px;
             transition: width 0.25s, height 0.25s, transform 1s;
             position: relative;
             overflow: hidden;
@@ -162,21 +163,9 @@
         }
 
         .test img {
-            position: relative;
-            left: 50%;
-            width: 100%;
-            height: 15%;
-            transform: translate(-0%, -0%) scale(0);
-            opacity: 0;
-            transition: transform 0.25s, opacity 0.25s;
-        }
-
-
-        .test:hover img {
-            transform: translate(-50%, -0%) scale(1);
             width: 100%;
             height: auto;
-            opacity: 1;
+            transition: transform 0.25s, opacity 0.25s;
         }
 
         .card-body {
@@ -184,7 +173,79 @@
             text-align: center;
             transition: all 0.25s ease;
         }
+
+        /* 响应式布局（适用于手机端） */
+
+        /* 默认样式（适用于电脑端） */
+        .test {
+            width: 300px;
+            height: 300px;
+            transition: width 0.25s, height 0.25s, transform 1s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .test.expanded {
+            width: 500px;
+            height: 500px;
+        }
+
+        .test img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.25s, opacity 0.25s;
+        }
+
+        .card-body {
+            padding: 10px;
+            text-align: center;
+            transition: all 0.25s ease;
+        }
+
+        /* 响应式布局（适用于手机端） */
+        @media (max-width: 767.98px) {
+            .test {
+                width: 100%;
+                /* 卡片宽度占满屏幕 */
+                max-width: 100%;
+                /* 防止超出屏幕 */
+                height: auto;
+                /* 高度根据内容自动调整 */
+            }
+
+            .test.expanded {
+                width: 100%;
+                /* 展开时也占满屏幕 */
+                height: auto;
+            }
+
+            .test img {
+                height: auto;
+                /* 确保图片按比例缩放 */
+            }
+
+            .card-body {
+                padding: 5px;
+                /* 减小内边距 */
+            }
+        }
     </style>
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.test');
+    
+            cards.forEach(card => {
+                card.addEventListener('click', () => {
+                    // 如果已经展开，则收起；否则展开
+                    card.classList.toggle('expanded');
+                });
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -261,37 +322,37 @@
     <section id="team" class="section container mt-5"> <br><br>
         <h4 id="title-intro" class="text-center mb-5">Phigros:Galciaxion World出场人物</h4>
         <div class="row">
-        <div class="col-md-4 mb-4 ">
-            <div class="card shadow-lg test">
-                <img src="./images/op.jpg" class="card-img-top  mx-auto mt-3" alt="友链头像">
-                <div class="card-body text-center">
-                    <h5 class="card-title">鸠</h5>
-                    <p class="card-text text-muted">第七小队成员</p>
-                    
+            <div class="col-md-7 mb-4 ">
+                <div class="card shadow-lg test">
+                    <img src="./images/op.jpg" class="card-img-top  mx-auto mt-3" alt="友链头像">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">鸠</h5>
+                        <p class="card-text text-muted">第七小队成员</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4 ">
+                <div class="card shadow-lg test">
+                    <img src="./images/op.jpg" class="card-img-top  mx-auto mt-3" alt="友链头像">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">鸠</h5>
+                        <p class="card-text text-muted">第七小队成员</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 mb-4 ">
+                <div class="card shadow-lg test">
+                    <img src="./images/op.jpg" class="card-img-top  mx-auto mt-3" alt="友链头像">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">鸠</h5>
+                        <p class="card-text text-muted">第七小队成员</p>
+
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 mb-4 ">
-            <div class="card shadow-lg test">
-                <img src="./images/op.jpg" class="card-img-top  mx-auto mt-3" alt="友链头像">
-                <div class="card-body text-center">
-                    <h5 class="card-title">鸠</h5>
-                    <p class="card-text text-muted">第七小队成员</p>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4 ">
-            <div class="card shadow-lg test">
-                <img src="./images/op.jpg" class="card-img-top  mx-auto mt-3" alt="友链头像">
-                <div class="card-body text-center">
-                    <h5 class="card-title">鸠</h5>
-                    <p class="card-text text-muted">第七小队成员</p>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
 
     </section>
     <br><br><br>
@@ -361,7 +422,6 @@
                 .then(response => response.json())
                 .then(data => {
                     const lang = navigator.language.startsWith('zh') ? 'zh' : 'en';
-
                     document.querySelector('#title-intro').innerText = data[lang].title_intro;
                     document.querySelector('#home').innerText = data[lang].home;
                     document.querySelector('#staff').innerText = data[lang].staff;
